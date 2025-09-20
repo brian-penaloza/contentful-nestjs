@@ -8,7 +8,7 @@ async function generateSwaggerDocs() {
   try {
     // Crear la aplicación
     const app = await NestFactory.create(AppModule);
-    
+
     // Configurar Swagger
     const config = new DocumentBuilder()
       .setTitle('Contentful NestJS API')
@@ -26,26 +26,25 @@ async function generateSwaggerDocs() {
           description: 'Enter JWT token',
           in: 'header',
         },
-        'JWT-auth'
+        'JWT-auth',
       )
       .build();
 
     // Generar documentación
     const document = SwaggerModule.createDocument(app, config);
-    
+
     // Crear carpeta docs si no existe
     const docsDir = join(process.cwd(), 'docs');
     mkdirSync(docsDir, { recursive: true });
-    
+
     // Guardar JSON
     const jsonPath = join(docsDir, 'swagger.json');
     writeFileSync(jsonPath, JSON.stringify(document, null, 2));
-    
+
     console.log('✅ Documentación Swagger generada en:', jsonPath);
-    
+
     // Cerrar la aplicación
     await app.close();
-    
   } catch (error) {
     console.error('❌ Error generando documentación:', error);
     process.exit(1);
