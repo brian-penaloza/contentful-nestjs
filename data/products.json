@@ -1,0 +1,40 @@
+{
+  "products": [
+    {
+      "sku": "BULK-002",
+      "name": "Producto Bulk 2",
+      "brand": "Marca B",
+      "model": "Modelo 2",
+      "category": "Hogar",
+      "color": "Blanco",
+      "price": 149.99,
+      "currency": "USD",
+      "stock": 25,
+      "externalId": "4HZHurmc8Ld78PNnI1ReYh"
+    },
+    {
+      "sku": "BULK-001",
+      "name": "Producto Duplicado",
+      "brand": "Marca C",
+      "model": "Modelo 3",
+      "category": "Ropa",
+      "color": "Azul",
+      "price": 79.99,
+      "currency": "USD",
+      "stock": 10,
+      "externalId": "3ZxS5MCw4W3R8rcN1SdQB7"
+    },
+    {
+      "sku": "BULK-003",
+      "name": "Producto Bulk 3",
+      "brand": "Marca D",
+      "model": "Modelo 4",
+      "category": "Deportes",
+      "color": "Rojo",
+      "price": 199.99,
+      "currency": "USD",
+      "stock": 30,
+      "externalId": "3LO1GPO3x1hjnVFzAp7V6S"
+    }
+  ]
+}

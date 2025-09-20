@@ -1,0 +1,61 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: contentful_postgres_dev
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=contentful_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - contentful-network-dev
+
+  # NestJS Application (Development)
+  app:
+    build: .
+    container_name: contentful_app_dev
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - AUTO_SEED=true
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE=contentful_db
+      - JWT_SECRET=your-secret-key
+      - JWT_EXPIRES_IN=24h
+      - CONTENTFUL_BASE_URL=https://cdn.contentful.com
+      - CONTENTFUL_SPACE_ID=9xs1613l9f7v
+      - CONTENTFUL_ACCESS_TOKEN=I-ThsT55eE_B3sCUWEQyDT4VqVO3x__20ufuie9usns
+      - CONTENTFUL_ENVIRONMENT=master
+      - CONTENTFUL_CONTENT_TYPE=product
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm run start:dev"
+    networks:
+      - contentful-network-dev
+
+volumes:
+  postgres_data_dev:
+
+networks:
+  contentful-network-dev:
+    driver: bridge
