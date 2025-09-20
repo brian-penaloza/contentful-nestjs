@@ -15,11 +15,11 @@ export class SeedInitService implements OnModuleInit {
     if (process.env.NODE_ENV === 'development' || process.env.AUTO_SEED === 'true') {
       try {
         console.log('🌱 Checking if database needs seeding...');
-        
+
         // Verificar si ya hay datos
         const userCount = await this.dataSource.getRepository('User').count();
         const productCount = await this.dataSource.getRepository('Product').count();
-        
+
         if (userCount === 0 && productCount === 0) {
           console.log('📊 Database is empty, starting seeding...');
           await runSeeds(this.dataSource);

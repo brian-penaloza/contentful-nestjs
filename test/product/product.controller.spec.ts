@@ -65,7 +65,7 @@ describe('ProductController', () => {
 
   describe('getDeletedPercentage', () => {
     it('should return deleted percentage', async () => {
-      const expectedPercentage = "Deleted percentage: 25%";
+      const expectedPercentage = 'Deleted percentage: 25%';
 
       mockProductService.getDeletedPercentage.mockResolvedValue(expectedPercentage);
 

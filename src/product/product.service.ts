@@ -28,9 +28,8 @@ export class ProductService {
     } = queryDto;
     const skip = (page - 1) * limit;
 
-    const queryBuilder = this.productRepository
-      .createQueryBuilder('product')
-      // .where('product.isDeleted = :isDeleted', { isDeleted: false });
+    const queryBuilder = this.productRepository.createQueryBuilder('product');
+    // .where('product.isDeleted = :isDeleted', { isDeleted: false });
 
     if (sku) {
       queryBuilder.andWhere('product.sku ILIKE :sku', { sku: `%${sku}%` });
