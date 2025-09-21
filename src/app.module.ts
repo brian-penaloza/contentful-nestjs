@@ -26,6 +26,10 @@ import { SeedInitService } from './seed/seed-init.service';
       database: process.env.DB_DATABASE || 'contentful_db',
       entities: [Product, User],
       synchronize: true,
+      // Configuración para evitar conexión durante build
+      retryAttempts: process.env.AUTO_SEED === 'false' ? 0 : 10,
+      retryDelay: process.env.AUTO_SEED === 'false' ? 0 : 3000,
+      connectTimeoutMS: process.env.AUTO_SEED === 'false' ? 1000 : 10000,
     }),
     ProductModule,
     AuthModule,
