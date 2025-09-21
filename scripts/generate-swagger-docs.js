@@ -1,8 +1,16 @@
 const { NestFactory } = require('@nestjs/core');
 const { SwaggerModule, DocumentBuilder } = require('@nestjs/swagger');
-const { writeFileSync, mkdirSync } = require('fs');
+const { writeFileSync, mkdirSync, existsSync } = require('fs');
 const { join } = require('path');
-const { AppModule } = require('../dist/app.module');
+
+// Verificar que el archivo compilado existe
+const appModulePath = join(__dirname, '../dist/src/app.module.js');
+if (!existsSync(appModulePath)) {
+  console.error('❌ Error: No se encontró el archivo compilado. Ejecuta "npm run build" primero.');
+  process.exit(1);
+}
+
+const { AppModule } = require(appModulePath);
 
 async function generateSwaggerDocs() {
   try {

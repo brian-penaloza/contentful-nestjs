@@ -42,65 +42,9 @@
         "tags": [
           "products"
         ]
-      },
-      "post": {
-        "operationId": "ProductController_create",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateProductDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Producto creado exitosamente"
-          },
-          "400": {
-            "description": "Datos inválidos"
-          }
-        },
-        "security": [
-          {
-            "JWT-auth": []
-          }
-        ],
-        "summary": "Crear nuevo producto",
-        "tags": [
-          "products"
-        ]
       }
     },
     "/products/{id}": {
-      "get": {
-        "operationId": "ProductController_findOne",
-        "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Producto encontrado"
-          },
-          "404": {
-            "description": "Producto no encontrado"
-          }
-        },
-        "summary": "Obtener producto por ID",
-        "tags": [
-          "products"
-        ]
-      },
       "delete": {
         "operationId": "ProductController_remove",
         "parameters": [
@@ -127,7 +71,7 @@
         ]
       }
     },
-    "/products/stats/deleted-percentage": {
+    "/products/deleted-percentage": {
       "get": {
         "operationId": "ProductController_getDeletedPercentage",
         "parameters": [],
@@ -147,7 +91,7 @@
         ]
       }
     },
-    "/products/stats/non-deleted-percentage": {
+    "/products/report": {
       "get": {
         "operationId": "ProductController_getNonDeletedPercentage",
         "parameters": [],
@@ -170,7 +114,16 @@
     "/products/low-stock": {
       "get": {
         "operationId": "ProductController_getLowStockProducts",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "stock",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Lista de productos con stock bajo"
@@ -295,75 +248,6 @@
       }
     },
     "schemas": {
-      "CreateProductDto": {
-        "type": "object",
-        "properties": {
-          "sku": {
-            "type": "string",
-            "description": "SKU único del producto",
-            "example": "PROD-001"
-          },
-          "name": {
-            "type": "string",
-            "description": "Nombre del producto",
-            "example": "iPhone 15 Pro"
-          },
-          "brand": {
-            "type": "string",
-            "description": "Marca del producto",
-            "example": "Apple"
-          },
-          "model": {
-            "type": "string",
-            "description": "Modelo del producto",
-            "example": "iPhone 15 Pro Max"
-          },
-          "category": {
-            "type": "string",
-            "description": "Categoría del producto",
-            "example": "Smartphones"
-          },
-          "color": {
-            "type": "string",
-            "description": "Color del producto",
-            "example": "Natural Titanium"
-          },
-          "price": {
-            "type": "number",
-            "description": "Precio del producto",
-            "example": 999.99
-          },
-          "currency": {
-            "type": "string",
-            "description": "Moneda del precio",
-            "example": "USD"
-          },
-          "stock": {
-            "type": "number",
-            "description": "Cantidad en stock",
-            "example": 50
-          },
-          "externalId": {
-            "type": "string",
-            "description": "ID externo del producto (para sincronización)",
-            "example": "contentful-123"
-          },
-          "isDeleted": {
-            "type": "boolean",
-            "description": "Indica si el producto está eliminado",
-            "example": false
-          }
-        },
-        "required": [
-          "sku",
-          "name",
-          "brand",
-          "model",
-          "category",
-          "color",
-          "price"
-        ]
-      },
       "LoginDto": {
         "type": "object",
         "properties": {
