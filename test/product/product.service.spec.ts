@@ -153,7 +153,7 @@ describe('ProductService', () => {
       const result = await service.getDeletedPercentage();
 
       expect(mockProductRepository.count).toHaveBeenCalledTimes(2);
-      expect(result).toBe("Deleted percentage: 25%");
+      expect(result).toBe('Deleted percentage: 25%');
     });
 
     it('should return 0 if no products exist', async () => {
@@ -161,7 +161,7 @@ describe('ProductService', () => {
 
       const result = await service.getDeletedPercentage();
 
-      expect(result).toBe("Deleted percentage: 0%");
+      expect(result).toBe('Deleted percentage: 0%');
     });
   });
 

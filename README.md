@@ -66,8 +66,8 @@ docker-compose --version
 ```
 
 #### Espacio total requerido:
-- **Total aproximado**: ~650MB (incluyendo dependencias)
 
+- **Total aproximado**: ~650MB (incluyendo dependencias)
 
 ### Con Docker (Recomendado)
 

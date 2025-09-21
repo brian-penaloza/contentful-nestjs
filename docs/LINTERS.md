@@ -5,11 +5,13 @@ Este proyecto utiliza ESLint y Prettier para mantener un código limpio y consis
 ## 📋 Configuración
 
 ### ESLint
+
 - **Archivo:** `.eslintrc.js`
 - **Reglas:** TypeScript + NestJS optimizadas
 - **Plugins:** @typescript-eslint, prettier
 
 ### Prettier
+
 - **Archivo:** `.prettierrc`
 - **Configuración:** Single quotes, trailing commas, 2 espacios
 
@@ -38,22 +40,26 @@ npm run test:cov
 ## 🔄 GitHub Actions
 
 ### Workflows Automáticos:
+
 1. **`.github/workflows/lint.yml`** - Linting y formateo
 2. **`.github/workflows/ci.yml`** - Tests, build y cobertura
 
 ### Triggers:
+
 - Push a `main` o `develop`
 - Pull requests a `main` o `develop`
 
 ## 📁 Archivos Ignorados
 
 ### ESLint (`.eslintignore`):
+
 - `node_modules/`
 - `dist/`
 - `coverage/`
 - Archivos de configuración
 
 ### Prettier (`.prettierignore`):
+
 - `node_modules/`
 - `dist/`
 - `package-lock.json`
@@ -62,12 +68,15 @@ npm run test:cov
 ## ⚙️ Configuración del IDE
 
 ### VS Code
+
 Instala estas extensiones:
+
 - ESLint
 - Prettier - Code formatter
 - TypeScript Importer
 
 ### Configuración recomendada (`.vscode/settings.json`):
+
 ```json
 {
   "editor.formatOnSave": true,
@@ -82,6 +91,7 @@ Instala estas extensiones:
 ## 🎯 Reglas Principales
 
 ### ESLint:
+
 - ✅ Usar `const` en lugar de `let` cuando sea posible
 - ✅ No variables no utilizadas
 - ✅ Interfaces sin prefijo `I`
@@ -89,6 +99,7 @@ Instala estas extensiones:
 - ❌ No `console.log` en producción
 
 ### Prettier:
+
 - ✅ Comillas simples
 - ✅ Punto y coma al final
 - ✅ 2 espacios de indentación
@@ -97,6 +108,7 @@ Instala estas extensiones:
 ## 🔧 Solución de Problemas
 
 ### Error: "ESLint couldn't find a configuration file"
+
 ```bash
 # Verificar que existe .eslintrc.js
 ls -la .eslintrc.js
@@ -106,6 +118,7 @@ npm ci
 ```
 
 ### Error: "Prettier not found"
+
 ```bash
 # Instalar Prettier globalmente (opcional)
 npm install -g prettier
@@ -123,6 +136,7 @@ npx prettier --write "src/**/*.ts"
 ## 🚨 Pre-commit Hooks
 
 Si usas Husky, se ejecutarán automáticamente:
+
 - Linting
 - Formateo
 - Tests
