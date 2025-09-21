@@ -16,6 +16,12 @@ export class SeedInitService implements OnModuleInit {
       try {
         console.log('🌱 Checking if database needs seeding...');
 
+        // Verificar si la base de datos está disponible
+        if (!this.dataSource.isInitialized) {
+          console.log('⏳ Database not initialized yet, skipping seed check');
+          return;
+        }
+
         // Verificar si ya hay datos
         const userCount = await this.dataSource.getRepository('User').count();
         const productCount = await this.dataSource.getRepository('Product').count();

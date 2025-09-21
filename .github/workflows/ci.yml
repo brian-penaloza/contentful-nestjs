@@ -89,9 +89,13 @@ jobs:
 
       - name: Build application
         run: npm run build
+        env:
+          AUTO_SEED: false
 
       - name: Generate Swagger docs
         run: npm run docs:generate
+        env:
+          AUTO_SEED: false
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
