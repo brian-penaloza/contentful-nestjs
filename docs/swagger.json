@@ -1,226 +1,20 @@
 {
   "openapi": "3.0.0",
-  "paths": {
-    "/": {
-      "get": {
-        "operationId": "AppController_getHello",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": [
-          "App"
-        ]
-      }
-    },
-    "/health": {
-      "get": {
-        "operationId": "AppController_getHealth",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": [
-          "App"
-        ]
-      }
-    },
-    "/products": {
-      "get": {
-        "operationId": "ProductController_findAll",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Lista de productos obtenida exitosamente"
-          }
-        },
-        "summary": "Obtener todos los productos",
-        "tags": [
-          "products"
-        ]
-      }
-    },
-    "/products/{id}": {
-      "delete": {
-        "operationId": "ProductController_remove",
-        "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Producto eliminado exitosamente"
-          },
-          "404": {
-            "description": "Producto no encontrado"
-          }
-        },
-        "summary": "Eliminar producto (soft delete)",
-        "tags": [
-          "products"
-        ]
-      }
-    },
-    "/products/deleted-percentage": {
-      "get": {
-        "operationId": "ProductController_getDeletedPercentage",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Porcentaje calculado exitosamente"
-          }
-        },
-        "security": [
-          {
-            "JWT-auth": []
-          }
-        ],
-        "summary": "Obtener porcentaje de productos eliminados",
-        "tags": [
-          "products"
-        ]
-      }
-    },
-    "/products/report": {
-      "get": {
-        "operationId": "ProductController_getNonDeletedPercentage",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Porcentaje calculado exitosamente"
-          }
-        },
-        "security": [
-          {
-            "JWT-auth": []
-          }
-        ],
-        "summary": "Obtener porcentaje de productos no eliminados",
-        "tags": [
-          "products"
-        ]
-      }
-    },
-    "/products/low-stock": {
-      "get": {
-        "operationId": "ProductController_getLowStockProducts",
-        "parameters": [
-          {
-            "name": "stock",
-            "required": true,
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Lista de productos con stock bajo"
-          }
-        },
-        "security": [
-          {
-            "JWT-auth": []
-          }
-        ],
-        "summary": "Obtener productos con stock bajo",
-        "tags": [
-          "products"
-        ]
-      }
-    },
-    "/auth/login": {
-      "post": {
-        "operationId": "AuthController_login",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Login exitoso"
-          },
-          "401": {
-            "description": "Credenciales inválidas"
-          }
-        },
-        "summary": "Iniciar sesión",
-        "tags": [
-          "auth"
-        ]
-      }
-    },
-    "/auth/register": {
-      "post": {
-        "operationId": "AuthController_register",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Usuario creado exitosamente"
-          },
-          "400": {
-            "description": "Datos inválidos"
-          }
-        },
-        "summary": "Registrar usuario",
-        "tags": [
-          "auth"
-        ]
-      }
-    },
-    "/external/products": {
-      "get": {
-        "operationId": "ExternalApiController_getProductsFromExternal",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Productos obtenidos exitosamente"
-          },
-          "500": {
-            "description": "Error al obtener productos"
-          }
-        },
-        "summary": "Obtener productos desde API externa (Contentful)",
-        "tags": [
-          "external-api"
-        ]
-      }
-    }
-  },
   "info": {
     "title": "Contentful NestJS API",
     "description": "API para gestión de productos con integración Contentful",
-    "version": "1.0",
-    "contact": {}
+    "version": "1.0.0",
+    "contact": {
+      "name": "API Support",
+      "email": "support@example.com"
+    }
   },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor de desarrollo"
+    }
+  ],
   "tags": [
     {
       "name": "auth",
@@ -235,60 +29,557 @@
       "description": "API externa Contentful"
     }
   ],
-  "servers": [],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "General"
+        ],
+        "summary": "Información de la API",
+        "description": "Obtiene información básica sobre la API",
+        "responses": {
+          "200": {
+            "description": "Información de la API",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Obtener productos",
+        "description": "Obtiene una lista de productos con filtros opcionales",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Filtrar por nombre del producto",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Filtrar por categoría",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "minPrice",
+            "in": "query",
+            "description": "Precio mínimo",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "maxPrice",
+            "in": "query",
+            "description": "Precio máximo",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número de página",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Elementos por página",
+            "schema": {
+              "type": "integer",
+              "default": 5
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de productos obtenida exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Product"
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    },
+                    "totalPages": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "delete": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Eliminar producto",
+        "description": "Elimina un producto (soft delete) - Requiere autenticación",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del producto a eliminar",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Producto eliminado exitosamente"
+          },
+          "401": {
+            "description": "No autorizado"
+          },
+          "404": {
+            "description": "Producto no encontrado"
+          }
+        }
+      }
+    },
+    "/products/deleted-percentage": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Porcentaje de productos eliminados",
+        "description": "Obtiene el porcentaje de productos eliminados - Requiere autenticación",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Porcentaje calculado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "Deleted percentage: 25%"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      }
+    },
+    "/products/report": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Reporte de productos no eliminados",
+        "description": "Obtiene el porcentaje de productos no eliminados con filtros - Requiere autenticación",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "hasPrice",
+            "in": "query",
+            "description": "Filtrar por productos con/sin precio",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Fecha de inicio (formato: YYYY-MM-DD)",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "Fecha de fin (formato: YYYY-MM-DD)",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reporte generado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "Non-deleted percentage: 75%"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      }
+    },
+    "/products/low-stock": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Productos con stock bajo",
+        "description": "Obtiene productos con stock menor al número especificado - Requiere autenticación",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "stock",
+            "in": "query",
+            "required": true,
+            "description": "Umbral de stock",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de productos con stock bajo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No autorizado"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Iniciar sesión",
+        "description": "Autentica un usuario y devuelve un token JWT",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login exitoso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "access_token": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Credenciales inválidas"
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Registrar usuario",
+        "description": "Registra un nuevo usuario en el sistema",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuario registrado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos de registro inválidos"
+          }
+        }
+      }
+    },
+    "/external/products": {
+      "get": {
+        "tags": [
+          "external-api"
+        ],
+        "summary": "Obtener productos externos",
+        "description": "Obtiene datos directamente del endpoint externo de Contentful",
+        "responses": {
+          "200": {
+            "description": "Datos externos obtenidos exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ContentfulItem"
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "components": {
     "securitySchemes": {
-      "JWT-auth": {
+      "bearerAuth": {
+        "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT",
-        "type": "http",
         "name": "JWT",
-        "description": "Enter JWT token",
-        "in": "header"
+        "description": "Enter JWT token"
       }
     },
     "schemas": {
+      "Product": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "price": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "stock": {
+            "type": "integer"
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
       "LoginDto": {
         "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
         "properties": {
           "email": {
             "type": "string",
-            "description": "Email del usuario",
-            "example": "usuario@ejemplo.com",
             "format": "email"
           },
           "password": {
             "type": "string",
-            "description": "Contraseña del usuario",
-            "example": "password123",
             "minLength": 6
           }
-        },
-        "required": [
-          "email",
-          "password"
-        ]
+        }
       },
       "RegisterDto": {
         "type": "object",
+        "required": [
+          "email",
+          "password",
+          "name"
+        ],
         "properties": {
           "email": {
             "type": "string",
-            "description": "Email del usuario",
-            "example": "usuario@ejemplo.com",
             "format": "email"
           },
           "password": {
             "type": "string",
-            "description": "Contraseña del usuario",
-            "example": "password123",
             "minLength": 6
+          },
+          "name": {
+            "type": "string"
           }
-        },
-        "required": [
-          "email",
-          "password"
-        ]
+        }
+      },
+      "ContentfulItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "price": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "stock": {
+            "type": "integer"
+          }
+        }
       }
     }
   }

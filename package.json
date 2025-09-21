@@ -29,7 +29,7 @@
     "seed": "ts-node src/seed/seed-runner.ts",
     "seed:clean": "ts-node src/seed/clean-database.ts",
     "seed:reset": "npm run seed:clean && npm run seed",
-    "docs:generate": "npm run build && node scripts/generate-swagger-docs.js",
+    "docs:generate": "node scripts/generate-swagger-docs-simple.js",
     "docs:serve": "swagger-ui-serve docs/swagger.json"
   },
   "dependencies": {
