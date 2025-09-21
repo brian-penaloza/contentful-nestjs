@@ -17,7 +17,7 @@ const getTypeOrmConfig = () => {
   if (process.env.AUTO_SEED === 'false') {
     return [];
   }
-  
+
   return [
     TypeOrmModule.forRoot({
       type: 'postgres',

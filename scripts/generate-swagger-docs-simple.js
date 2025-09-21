@@ -12,28 +12,28 @@ function generateSwaggerDocs() {
         version: '1.0.0',
         contact: {
           name: 'API Support',
-          email: 'support@example.com'
-        }
+          email: 'support@example.com',
+        },
       },
       servers: [
         {
           url: 'http://localhost:3000',
-          description: 'Servidor de desarrollo'
-        }
+          description: 'Servidor de desarrollo',
+        },
       ],
       tags: [
         {
           name: 'auth',
-          description: 'Autenticación de usuarios'
+          description: 'Autenticación de usuarios',
         },
         {
           name: 'products',
-          description: 'Gestión de productos'
+          description: 'Gestión de productos',
         },
         {
           name: 'external-api',
-          description: 'API externa Contentful'
-        }
+          description: 'API externa Contentful',
+        },
       ],
       paths: {
         '/': {
@@ -42,7 +42,7 @@ function generateSwaggerDocs() {
             summary: 'Información de la API',
             description: 'Obtiene información básica sobre la API',
             responses: {
-              '200': {
+              200: {
                 description: 'Información de la API',
                 content: {
                   'application/json': {
@@ -50,14 +50,14 @@ function generateSwaggerDocs() {
                       type: 'object',
                       properties: {
                         message: { type: 'string' },
-                        version: { type: 'string' }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
+                        version: { type: 'string' },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
         },
         '/products': {
           get: {
@@ -69,41 +69,41 @@ function generateSwaggerDocs() {
                 name: 'name',
                 in: 'query',
                 description: 'Filtrar por nombre del producto',
-                schema: { type: 'string' }
+                schema: { type: 'string' },
               },
               {
                 name: 'category',
                 in: 'query',
                 description: 'Filtrar por categoría',
-                schema: { type: 'string' }
+                schema: { type: 'string' },
               },
               {
                 name: 'minPrice',
                 in: 'query',
                 description: 'Precio mínimo',
-                schema: { type: 'number' }
+                schema: { type: 'number' },
               },
               {
                 name: 'maxPrice',
                 in: 'query',
                 description: 'Precio máximo',
-                schema: { type: 'number' }
+                schema: { type: 'number' },
               },
               {
                 name: 'page',
                 in: 'query',
                 description: 'Número de página',
-                schema: { type: 'integer', default: 1 }
+                schema: { type: 'integer', default: 1 },
               },
               {
                 name: 'limit',
                 in: 'query',
                 description: 'Elementos por página',
-                schema: { type: 'integer', default: 5 }
-              }
+                schema: { type: 'integer', default: 5 },
+              },
             ],
             responses: {
-              '200': {
+              200: {
                 description: 'Lista de productos obtenida exitosamente',
                 content: {
                   'application/json': {
@@ -113,20 +113,20 @@ function generateSwaggerDocs() {
                         data: {
                           type: 'array',
                           items: {
-                            $ref: '#/components/schemas/Product'
-                          }
+                            $ref: '#/components/schemas/Product',
+                          },
                         },
                         total: { type: 'integer' },
                         page: { type: 'integer' },
                         limit: { type: 'integer' },
-                        totalPages: { type: 'integer' }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
+                        totalPages: { type: 'integer' },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
         },
         '/products/{id}': {
           delete: {
@@ -140,21 +140,21 @@ function generateSwaggerDocs() {
                 in: 'path',
                 required: true,
                 description: 'ID del producto a eliminar',
-                schema: { type: 'integer' }
-              }
+                schema: { type: 'integer' },
+              },
             ],
             responses: {
-              '200': {
-                description: 'Producto eliminado exitosamente'
+              200: {
+                description: 'Producto eliminado exitosamente',
               },
-              '401': {
-                description: 'No autorizado'
+              401: {
+                description: 'No autorizado',
               },
-              '404': {
-                description: 'Producto no encontrado'
-              }
-            }
-          }
+              404: {
+                description: 'Producto no encontrado',
+              },
+            },
+          },
         },
         '/products/deleted-percentage': {
           get: {
@@ -163,72 +163,74 @@ function generateSwaggerDocs() {
             description: 'Obtiene el porcentaje de productos eliminados - Requiere autenticación',
             security: [{ bearerAuth: [] }],
             responses: {
-              '200': {
+              200: {
                 description: 'Porcentaje calculado exitosamente',
                 content: {
                   'application/json': {
                     schema: {
                       type: 'string',
-                      example: 'Deleted percentage: 25%'
-                    }
-                  }
-                }
+                      example: 'Deleted percentage: 25%',
+                    },
+                  },
+                },
               },
-              '401': {
-                description: 'No autorizado'
-              }
-            }
-          }
+              401: {
+                description: 'No autorizado',
+              },
+            },
+          },
         },
         '/products/report': {
           get: {
             tags: ['products'],
             summary: 'Reporte de productos no eliminados',
-            description: 'Obtiene el porcentaje de productos no eliminados con filtros - Requiere autenticación',
+            description:
+              'Obtiene el porcentaje de productos no eliminados con filtros - Requiere autenticación',
             security: [{ bearerAuth: [] }],
             parameters: [
               {
                 name: 'hasPrice',
                 in: 'query',
                 description: 'Filtrar por productos con/sin precio',
-                schema: { type: 'boolean' }
+                schema: { type: 'boolean' },
               },
               {
                 name: 'startDate',
                 in: 'query',
                 description: 'Fecha de inicio (formato: YYYY-MM-DD)',
-                schema: { type: 'string', format: 'date' }
+                schema: { type: 'string', format: 'date' },
               },
               {
                 name: 'endDate',
                 in: 'query',
                 description: 'Fecha de fin (formato: YYYY-MM-DD)',
-                schema: { type: 'string', format: 'date' }
-              }
+                schema: { type: 'string', format: 'date' },
+              },
             ],
             responses: {
-              '200': {
+              200: {
                 description: 'Reporte generado exitosamente',
                 content: {
                   'application/json': {
                     schema: {
                       type: 'string',
-                      example: 'Non-deleted percentage: 75%'
-                    }
-                  }
-                }
+                      example: 'Non-deleted percentage: 75%',
+                    },
+                  },
+                },
               },
-              '401': {
-                description: 'No autorizado'
-              }
-            }
-          }
+              401: {
+                description: 'No autorizado',
+              },
+            },
+          },
         },
         '/products/low-stock': {
           get: {
             tags: ['products'],
             summary: 'Productos con stock bajo',
-            description: 'Obtiene productos con stock menor al número especificado - Requiere autenticación',
+            description:
+              'Obtiene productos con stock menor al número especificado - Requiere autenticación',
             security: [{ bearerAuth: [] }],
             parameters: [
               {
@@ -236,28 +238,28 @@ function generateSwaggerDocs() {
                 in: 'query',
                 required: true,
                 description: 'Umbral de stock',
-                schema: { type: 'integer' }
-              }
+                schema: { type: 'integer' },
+              },
             ],
             responses: {
-              '200': {
+              200: {
                 description: 'Lista de productos con stock bajo',
                 content: {
                   'application/json': {
                     schema: {
                       type: 'array',
                       items: {
-                        $ref: '#/components/schemas/Product'
-                      }
-                    }
-                  }
-                }
+                        $ref: '#/components/schemas/Product',
+                      },
+                    },
+                  },
+                },
               },
-              '401': {
-                description: 'No autorizado'
-              }
-            }
-          }
+              401: {
+                description: 'No autorizado',
+              },
+            },
+          },
         },
         '/auth/login': {
           post: {
@@ -269,13 +271,13 @@ function generateSwaggerDocs() {
               content: {
                 'application/json': {
                   schema: {
-                    $ref: '#/components/schemas/LoginDto'
-                  }
-                }
-              }
+                    $ref: '#/components/schemas/LoginDto',
+                  },
+                },
+              },
             },
             responses: {
-              '200': {
+              200: {
                 description: 'Login exitoso',
                 content: {
                   'application/json': {
@@ -284,18 +286,18 @@ function generateSwaggerDocs() {
                       properties: {
                         access_token: { type: 'string' },
                         user: {
-                          $ref: '#/components/schemas/User'
-                        }
-                      }
-                    }
-                  }
-                }
+                          $ref: '#/components/schemas/User',
+                        },
+                      },
+                    },
+                  },
+                },
               },
-              '401': {
-                description: 'Credenciales inválidas'
-              }
-            }
-          }
+              401: {
+                description: 'Credenciales inválidas',
+              },
+            },
+          },
         },
         '/auth/register': {
           post: {
@@ -307,27 +309,27 @@ function generateSwaggerDocs() {
               content: {
                 'application/json': {
                   schema: {
-                    $ref: '#/components/schemas/RegisterDto'
-                  }
-                }
-              }
+                    $ref: '#/components/schemas/RegisterDto',
+                  },
+                },
+              },
             },
             responses: {
-              '201': {
+              201: {
                 description: 'Usuario registrado exitosamente',
                 content: {
                   'application/json': {
                     schema: {
-                      $ref: '#/components/schemas/User'
-                    }
-                  }
-                }
+                      $ref: '#/components/schemas/User',
+                    },
+                  },
+                },
               },
-              '400': {
-                description: 'Datos de registro inválidos'
-              }
-            }
-          }
+              400: {
+                description: 'Datos de registro inválidos',
+              },
+            },
+          },
         },
         '/external/products': {
           get: {
@@ -335,7 +337,7 @@ function generateSwaggerDocs() {
             summary: 'Obtener productos externos',
             description: 'Obtiene datos directamente del endpoint externo de Contentful',
             responses: {
-              '200': {
+              200: {
                 description: 'Datos externos obtenidos exitosamente',
                 content: {
                   'application/json': {
@@ -345,18 +347,18 @@ function generateSwaggerDocs() {
                         items: {
                           type: 'array',
                           items: {
-                            $ref: '#/components/schemas/ContentfulItem'
-                          }
+                            $ref: '#/components/schemas/ContentfulItem',
+                          },
                         },
-                        total: { type: 'integer' }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
+                        total: { type: 'integer' },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
       },
       components: {
         securitySchemes: {
@@ -365,8 +367,8 @@ function generateSwaggerDocs() {
             scheme: 'bearer',
             bearerFormat: 'JWT',
             name: 'JWT',
-            description: 'Enter JWT token'
-          }
+            description: 'Enter JWT token',
+          },
         },
         schemas: {
           Product: {
@@ -385,8 +387,8 @@ function generateSwaggerDocs() {
               isDeleted: { type: 'boolean' },
               externalId: { type: 'string' },
               createdAt: { type: 'string', format: 'date-time' },
-              updatedAt: { type: 'string', format: 'date-time' }
-            }
+              updatedAt: { type: 'string', format: 'date-time' },
+            },
           },
           User: {
             type: 'object',
@@ -395,16 +397,16 @@ function generateSwaggerDocs() {
               email: { type: 'string', format: 'email' },
               name: { type: 'string' },
               createdAt: { type: 'string', format: 'date-time' },
-              updatedAt: { type: 'string', format: 'date-time' }
-            }
+              updatedAt: { type: 'string', format: 'date-time' },
+            },
           },
           LoginDto: {
             type: 'object',
             required: ['email', 'password'],
             properties: {
               email: { type: 'string', format: 'email' },
-              password: { type: 'string', minLength: 6 }
-            }
+              password: { type: 'string', minLength: 6 },
+            },
           },
           RegisterDto: {
             type: 'object',
@@ -412,8 +414,8 @@ function generateSwaggerDocs() {
             properties: {
               email: { type: 'string', format: 'email' },
               password: { type: 'string', minLength: 6 },
-              name: { type: 'string' }
-            }
+              name: { type: 'string' },
+            },
           },
           ContentfulItem: {
             type: 'object',
@@ -426,11 +428,11 @@ function generateSwaggerDocs() {
               color: { type: 'string' },
               price: { type: 'string' },
               currency: { type: 'string' },
-              stock: { type: 'integer' }
-            }
-          }
-        }
-      }
+              stock: { type: 'integer' },
+            },
+          },
+        },
+      },
     };
 
     // Crear carpeta docs si no existe
